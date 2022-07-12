@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 const express = require("express");
+const cors = require('cors')
 // grabbing routes
 const apiV1Routes = require('./routes')
 
@@ -11,6 +12,8 @@ const app = express();
 // Setting port number
 const port = 4000;
 
+// cors middleware. for allowing front end access to data
+app.use(cors())
 
 // 'use' activating express.json() - a middleware, at this part in the code.
 // This does a JSON.parse on inc request body. and sets a req.body for use with our post.

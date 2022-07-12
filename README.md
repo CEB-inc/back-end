@@ -1,5 +1,9 @@
 This is the backend for our fullstack media-hub application
 
+npm i express
+npm i mongoose
+npm i cors
+
 URLS/routes so far
 http://localhost:4000/api/v1/posts
 http://localhost:4000/api/v1/posts/:id
