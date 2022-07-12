@@ -1,5 +1,5 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 const PostModel = require("../db/post_model");
 
 // Posts-page get request.
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     if (err) {
       res.status(422).send({ error: err.message });
     } else {
-      res.status(401).send(doc);
+      res.status(201).send(doc);
     }
   });
 });
@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
       if (err) {
         res.status(422).send({ error: err.message });
       } else {
-        res.status(401).send(doc);
+        res.status(201).send(doc);
       }
     }
   );
@@ -63,4 +63,4 @@ router.delete("/:id", async (req, res) => {
   });
 });
 
-module.exports = router
+module.exports = router;
