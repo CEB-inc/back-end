@@ -5,7 +5,7 @@ npm i mongoose
 npm i cors
 npm i --save express-async-handler
 npm i jsonwebtoken
-- npm i bcryptjs
+npm i bcryptjs
 
 URLS/routes so far
 http://localhost:4000/api/v1/posts
