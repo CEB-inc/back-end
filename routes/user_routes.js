@@ -4,7 +4,7 @@ const UserModel = require("../db/user_model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-const { protect } = require('../middleware/authMiddleware')
+const { protect } = require("../middleware/authMiddleware");
 
 //Register new user with a POST request
 router.post(
@@ -41,7 +41,7 @@ router.post(
         _id: user.id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id)
+        token: generateToken(user._id),
       });
     } else {
       res.status(400);
@@ -54,11 +54,11 @@ router.post(
 router.post(
   "/login",
   asyncHandler(async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     //check for user email
-    const user = await UserModel.findOne({ email })
-    
+    const user = await UserModel.findOne({ email });
+
     // compares password with encrypted password from the user
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
@@ -71,29 +71,43 @@ router.post(
       res.status(400);
       throw new Error("Invalid credentials");
     }
-
   })
 );
 
 //Get new users data with a Get request
 router.get(
-  "/me", protect,
+  "/me",
+  protect,
   asyncHandler(async (req, res) => {
-    const { _id, name, email } = await UserModel.findById(req.user.id)
-    
+    const { _id, name, email } = await UserModel.findById(req.user.id);
+
     res.status(200).json({
       id: _id,
       name,
       email,
-    })
+    });
   })
 );
+
+// GET REQUEST INDIVIDUAL USERS
+router.get("/:id", async (req, res) => {
+  // if it finds the id it will pass it through 'user' and err will be undefined. vice versa if it fails to find id
+  UserModel.findById(req.params.id, (err, user) => {
+    if (err) {
+      res
+        .status(404)
+        .send({ error: `Could not find user id ${req.params.id}` }); // .send(err) will give error object
+    } else {
+      res.send(user);
+    }
+  });
+});
 
 // Generate JWT and set expiry to 30 days
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
-  })
-}
+    expiresIn: "30d",
+  });
+};
 
 module.exports = router;

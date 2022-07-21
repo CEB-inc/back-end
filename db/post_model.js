@@ -15,7 +15,7 @@ const PostModel = mongoose.model(
       },
       category: {
         type: String,
-        required: true,
+        required: false,
       },
       media: {
         type: String,
@@ -25,7 +25,7 @@ const PostModel = mongoose.model(
         type: String,
         required: true,
       },
-      post: {
+      body: {
         type: String,
         required: true,
       },
