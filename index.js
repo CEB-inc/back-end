@@ -13,7 +13,7 @@ const { errorHandler } = require('./middleware/errorMiddleware')
 // assigning express to a variable to use
 const app = express();
 // Setting port number
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 // cors middleware. for allowing front end access to data
 app.use(cors())
