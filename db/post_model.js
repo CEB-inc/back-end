@@ -25,7 +25,7 @@ const PostModel = mongoose.model(
         type: String,
         required: true,
       },
-      post: {
+      body: {
         type: String,
         required: true,
       },
